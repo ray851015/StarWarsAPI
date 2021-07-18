@@ -1,23 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Cardlist from "./Cardlist";
+import Card from "./Cardlist";
+import Header from "./Header";
+import { useEffect, useState } from "react";
 
 function App() {
+  //region -- -- -- state -- -- --
+  const [profile, setProfile] = useState([]);
+  const { cardnumber, setCardNumber } = useState(10);
+  //endregion
+
+  //#region -- -- -- function -- -- --
+
+  const getStartwarsapi = async () => {
+    try {
+      let response = await fetch("https://swapi.dev/api/people/");
+      let data = await response.json();
+      setProfile(data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //   const setMyName = () => {
+  //     setProfile("newName");
+  //   };
+
+  //#endregion
+  //#region -- -- -- lifecyclehook -- -- --
+
+  useEffect(() => {
+    getStartwarsapi();
+  }, []);
+
+  useEffect(() => {
+    console.log("profile:", profile);
+  });
+  //endregion
   return (
-    <div className="App">ray
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* Header */}
+      <Header />
+
+      {/* Body */}
+      {profile.length > 0
+        ? profile.map((eachProfile) => {
+            return <Cardlist profile={eachProfile} />;
+          })
+        : ""}
+
+      {/* Footer */}
     </div>
   );
 }

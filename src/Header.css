@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+  background: linear-gradient(#ffe9e9, #9198eb);
+}
+
+.header__mainMessage {
+  font-size: 20px;
+  font-weight: 600;
+  color: antiquewhite;
+}
+
+.header__subMessage {
+  font-size: 10px;
+  font-weight: 600;
+}
